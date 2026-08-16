@@ -46,7 +46,7 @@ A single-page static website that displays curated articles in a vertical timeli
 
 ## Admin (local only)
 
-The admin app lives in `admin/` and runs on your homelab. It provides a web UI to manage gems and publish changes via git.
+The admin app lives in `admin/` and runs on your homelab. It provides a web UI to manage gems by directly editing `data/gems.json`.
 
 ### Setup with local virtual environment
 
@@ -71,7 +71,7 @@ python app.py
 - **Add a gem**: Fill in title, URL, and tags (comma-separated) at the top, click **Add**
 - **Edit a gem**: Click **Edit** on any row, modify fields, click **Save**
 - **Delete a gem**: Click **Del** on any row (confirmation prompt)
-- **Publish to git**: Enter an optional commit message at the bottom, click **Publish** — runs `git add`, `commit`, and `push`
+- **Save directly**: Add, edit, or delete operations are written to `data/gems.json` immediately
 
 ### Stop and exit
 
@@ -85,7 +85,7 @@ deactivate
 
 ### How it works
 
-The admin reads/writes `data/gems.json` directly. It auto-detects the repo path from its own location. The "Publish" button commits and pushes the JSON file to git, which syncs to Hostinger.
+The admin reads/writes `data/gems.json` directly and auto-detects the repo path from its own location. Git commit/push is handled outside the container.
 
 ## Local preview
 
@@ -101,7 +101,7 @@ Use Docker Compose to run frontend and admin together with realtime edits from m
 ### Start both services
 
 ```bash
-docker compose --env-file .env.docker -f docker-compose.yml up --build
+docker compose --env-file /mnt/media/projects/gems/.env.docker -f /mnt/media/projects/gems/docker-compose.yml up --build
 ```
 
 ### Access
@@ -113,14 +113,15 @@ Both services mount the repository folder, so updates to `data/gems.json`, `css/
 
 ### Configure ports and project path
 
-Set `PROJECTS_DIR` in your shell environment (for example via dotfiles), then edit `.env.docker` for compose-specific values:
+Edit `/mnt/media/projects/gems/.env.docker`:
 
 - `COMPOSE_PROJECT_NAME`: compose project name (set to `gems` by default)
+- `PROJECT_DIR`: absolute path of this repo on your machine
 - `FRONTEND_PORT`: host port for timeline site
 - `ADMIN_PORT`: host port for admin app
 
 ### Stop
 
 ```bash
-docker compose --env-file .env.docker -f docker-compose.yml down
+docker compose --env-file /mnt/media/projects/gems/.env.docker -f /mnt/media/projects/gems/docker-compose.yml down
 ```

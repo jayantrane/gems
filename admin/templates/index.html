@@ -36,8 +36,7 @@
     .edit-row td { background: #16162a; }
     .edit-row input { background: #0e0e1a; border: 1px solid #333; border-radius: 3px; padding: 0.3rem 0.5rem; color: #e0e0e0; font-size: 0.8rem; width: 100%; }
 
-    .publish-bar { margin-top: 2rem; background: #16162a; padding: 1rem; border-radius: 8px; display: flex; gap: 0.75rem; align-items: center; }
-    .publish-bar input { flex: 1; background: #0e0e1a; border: 1px solid #333; border-radius: 4px; padding: 0.5rem; color: #e0e0e0; font-size: 0.85rem; }
+    .status-bar { margin-top: 2rem; background: #16162a; padding: 1rem; border-radius: 8px; color: #999; font-size: 0.8rem; }
   </style>
 </head>
 <body>
@@ -90,11 +89,8 @@
     </tbody>
   </table>
 
-  <div class="publish-bar">
-    <form method="POST" action="/publish" style="display:flex; gap:0.5rem; width:100%; align-items:center">
-      <input name="commit_msg" placeholder="Commit message (optional)">
-      <button type="submit" onclick="return confirm('Commit and push to git?')">Publish</button>
-    </form>
+  <div class="status-bar">
+    Changes are saved directly to data/gems.json.
   </div>
 
   <script>

@@ -1,5 +1,4 @@
 import json
-import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -41,17 +40,6 @@ def is_valid_http_url(value):
     except ValueError:
         return False
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
-
-
-def git_run(*args):
-    result = subprocess.run(
-        ["git"] + list(args),
-        cwd=REPO_PATH,
-        capture_output=True,
-        text=True,
-        timeout=30,
-    )
-    return result.returncode == 0, result.stdout + result.stderr
 
 
 @app.route("/")
@@ -135,28 +123,6 @@ def delete(seq):
 
     save_gems(gems)
     flash("Deleted.")
-    return redirect(url_for("index"))
-
-
-@app.route("/publish", methods=["POST"])
-def publish():
-    ok, out = git_run("add", "data/gems.json")
-    if not ok:
-        flash(f"git add failed: {out}")
-        return redirect(url_for("index"))
-
-    msg = request.form.get("commit_msg", "Update gems").strip() or "Update gems"
-    ok, out = git_run("commit", "-m", msg)
-    if not ok and "nothing to commit" not in out:
-        flash(f"git commit failed: {out}")
-        return redirect(url_for("index"))
-
-    ok, out = git_run("push")
-    if ok:
-        flash("Published successfully.")
-    else:
-        flash(f"git push failed: {out}")
-
     return redirect(url_for("index"))
 
 
