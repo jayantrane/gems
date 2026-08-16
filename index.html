@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gems — Curated Articles by Jayant</title>
+  <meta name="description" content="Best articles curated by Jayant across engineering, system design, and more.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-wrap">
+    <header>
+      <div class="header-left">
+        <h1><span>✦</span> Gems</h1>
+        <p>Best reads curated by Jayant, collected over time</p>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" title="Toggle theme">☀</button>
+    </header>
+
+    <div class="tag-filter-bar" id="tag-filter-bar">
+      <span class="label">Tags</span>
+      <button class="clear-filter" id="clear-filter" onclick="clearTagFilter()">clear</button>
+    </div>
+
+    <div class="timeline" id="timeline">
+      <div class="loading">Loading gems…</div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

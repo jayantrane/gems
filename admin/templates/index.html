@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gems Admin</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #1a1a2e; color: #e0e0e0; padding: 2rem; }
+    h1 { font-size: 1.3rem; margin-bottom: 1.5rem; color: #7c6aef; }
+    h2 { font-size: 1rem; margin: 1.5rem 0 0.75rem; color: #aaa; }
+
+    .flash { background: #2a2a4a; padding: 0.5rem 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 3px solid #7c6aef; font-size: 0.85rem; }
+
+    form.add-form { background: #16162a; padding: 1.25rem; border-radius: 8px; margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+    form.add-form label { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.75rem; color: #888; }
+    form.add-form input { background: #0e0e1a; border: 1px solid #333; border-radius: 4px; padding: 0.5rem; color: #e0e0e0; font-size: 0.85rem; }
+    form.add-form input:focus { outline: none; border-color: #7c6aef; }
+    .field-title { flex: 2; min-width: 200px; }
+    .field-url { flex: 3; min-width: 200px; }
+    .field-tags { flex: 2; min-width: 150px; }
+
+    button, .btn { background: #7c6aef; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+    button:hover, .btn:hover { background: #6a58d6; }
+    .btn-danger { background: #c0392b; }
+    .btn-danger:hover { background: #a93226; }
+    .btn-sm { padding: 0.3rem 0.6rem; font-size: 0.7rem; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid #222; }
+    th { color: #666; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    td a { color: #7c6aef; text-decoration: none; }
+    td a:hover { text-decoration: underline; }
+    .tag { display: inline-block; background: #222; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.7rem; margin: 0.1rem; }
+
+    .edit-row td { background: #16162a; }
+    .edit-row input { background: #0e0e1a; border: 1px solid #333; border-radius: 3px; padding: 0.3rem 0.5rem; color: #e0e0e0; font-size: 0.8rem; width: 100%; }
+
+    .publish-bar { margin-top: 2rem; background: #16162a; padding: 1rem; border-radius: 8px; display: flex; gap: 0.75rem; align-items: center; }
+    .publish-bar input { flex: 1; background: #0e0e1a; border: 1px solid #333; border-radius: 4px; padding: 0.5rem; color: #e0e0e0; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>◆ Gems Admin</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% for msg in messages %}
+      <div class="flash">{{ msg }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <h2>Add New Gem</h2>
+  <form class="add-form" method="POST" action="/add">
+    <label class="field-title">Title <input type="text" name="title" required></label>
+    <label class="field-url">URL <input type="url" name="url" required></label>
+    <label class="field-tags">Tags (comma-separated) <input type="text" name="tags" placeholder="database, scale"></label>
+    <button type="submit">Add</button>
+  </form>
+
+  <h2>All Gems ({{ gems | length }})</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Title</th><th>Tags</th><th>Added</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for gem in gems %}
+      <tr id="row-{{ gem.seq }}">
+        <td>{{ gem.seq }}</td>
+        <td><a href="{{ gem.url }}" target="_blank">{{ gem.title }}</a></td>
+        <td>{% for t in gem.tags %}<span class="tag">{{ t }}</span>{% endfor %}</td>
+        <td>{{ gem.added[:10] }}</td>
+        <td>
+          <button class="btn-sm" onclick="toggleEdit({{ gem.seq }})">Edit</button>
+          <form method="POST" action="/delete/{{ gem.seq }}" style="display:inline" onsubmit="return confirm('Delete this gem?')">
+            <button class="btn-sm btn-danger" type="submit">Del</button>
+          </form>
+        </td>
+      </tr>
+      <tr class="edit-row" id="edit-{{ gem.seq }}" style="display:none">
+        <td colspan="5">
+          <form method="POST" action="/edit/{{ gem.seq }}" style="display:flex; gap:0.5rem; align-items:center">
+            <input name="title" value="{{ gem.title }}" style="flex:2">
+            <input name="url" value="{{ gem.url }}" style="flex:3">
+            <input name="tags" value="{{ gem.tags | join(', ') }}" style="flex:2">
+            <button type="submit" class="btn-sm">Save</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="publish-bar">
+    <form method="POST" action="/publish" style="display:flex; gap:0.5rem; width:100%; align-items:center">
+      <input name="commit_msg" placeholder="Commit message (optional)">
+      <button type="submit" onclick="return confirm('Commit and push to git?')">Publish</button>
+    </form>
+  </div>
+
+  <script>
+    function toggleEdit(seq) {
+      const row = document.getElementById('edit-' + seq);
+      row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+    }
+  </script>
+</body>
+</html>

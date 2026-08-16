@@ -1,0 +1,328 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0a0a0f;
+  --bg-secondary: #111119;
+  --text: #e0e0e0;
+  --text-bright: #fff;
+  --text-muted: rgba(255, 255, 255, 0.35);
+  --text-faded: rgba(255, 255, 255, 0.15);
+  --accent: #7c6aef;
+  --accent-dim: rgba(124, 106, 239, 0.25);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-faint: rgba(255, 255, 255, 0.03);
+  --tag-text: rgba(255, 255, 255, 0.4);
+  --tag-text-active: rgba(255, 255, 255, 0.7);
+  --tag-border: rgba(255, 255, 255, 0.12);
+  --tag-border-dim: rgba(255, 255, 255, 0.08);
+  --date-color: rgba(255, 255, 255, 0.3);
+  --date-color-active: rgba(255, 255, 255, 0.6);
+  --title-color: rgba(255, 255, 255, 0.25);
+  --title-color-active: #fff;
+  --dot-bg: #1a1a2e;
+}
+
+[data-theme="light"] {
+  --bg: #f6f6f9;
+  --bg-secondary: #eeeef3;
+  --text: #2a2a3a;
+  --text-bright: #111;
+  --text-muted: rgba(0, 0, 0, 0.4);
+  --text-faded: rgba(0, 0, 0, 0.15);
+  --accent: #6554c0;
+  --accent-dim: rgba(101, 84, 192, 0.15);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-faint: rgba(0, 0, 0, 0.04);
+  --tag-text: rgba(0, 0, 0, 0.4);
+  --tag-text-active: rgba(0, 0, 0, 0.7);
+  --tag-border: rgba(0, 0, 0, 0.12);
+  --tag-border-dim: rgba(0, 0, 0, 0.08);
+  --date-color: rgba(0, 0, 0, 0.3);
+  --date-color-active: rgba(0, 0, 0, 0.6);
+  --title-color: rgba(0, 0, 0, 0.3);
+  --title-color-active: #111;
+  --dot-bg: #e8e8f0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 3rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+}
+
+.header-left h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-bright);
+}
+
+.header-left h1 span {
+  color: var(--accent);
+  margin-right: 0.15rem;
+}
+
+.header-left p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.65rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Tag filter bar */
+.tag-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.tag-filter-bar .label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-right: 0.15rem;
+}
+
+.tag-filter-bar .tag-pill {
+  cursor: pointer;
+  color: var(--tag-text);
+  border-color: var(--tag-border);
+}
+
+.tag-filter-bar .tag-pill.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.clear-filter {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-left: 0.25rem;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  display: none;
+}
+
+.clear-filter.visible {
+  display: inline;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding: 0.5rem 0 8rem;
+}
+
+/* Each gem row — uses grid for precise column control */
+.gem-item {
+  display: grid;
+  grid-template-columns: 8rem 1.5rem 1fr auto;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-faint);
+  position: relative;
+  opacity: 0.15;
+  transform: translateY(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.gem-item.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Date column */
+.gem-date {
+  font-size: 0.8rem;
+  color: var(--date-color);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+  transition: color 0.5s ease;
+}
+
+.gem-item.in-view .gem-date {
+  color: var(--date-color-active);
+}
+
+/* Timeline dot — sits in the narrow 2nd column */
+.gem-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--dot-bg);
+  border: 1.5px solid var(--accent-dim);
+  align-self: center;
+  justify-self: center;
+  transition: background 0.5s ease, border-color 0.5s ease;
+  position: relative;
+}
+
+.gem-dot::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  bottom: -3rem;
+  width: 1px;
+  background: var(--accent-dim);
+  transform: translateX(-50%);
+}
+
+.gem-item:last-child .gem-dot::before {
+  display: none;
+}
+
+.gem-item.in-view .gem-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Title */
+.gem-title {
+  min-width: 0;
+}
+
+.gem-title a {
+  color: var(--title-color);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  transition: color 0.6s ease;
+  word-wrap: break-word;
+}
+
+.gem-title a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--accent);
+}
+
+.gem-item.in-view .gem-title a {
+  color: var(--title-color-active);
+}
+
+/* Tags */
+.gem-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 320px;
+}
+
+.tag-pill {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--tag-border-dim);
+  color: var(--tag-text);
+  white-space: nowrap;
+  transition: color 0.5s ease, border-color 0.5s ease, background 0.2s ease;
+}
+
+.gem-item.in-view .tag-pill {
+  color: var(--tag-text-active);
+  border-color: var(--tag-border);
+}
+
+.tag-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+/* Empty / loading state */
+.empty-state,
+.loading {
+  text-align: center;
+  padding: 6rem 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* Responsive — only for narrow devices */
+@media (max-width: 768px) {
+  .page-wrap { padding: 0 1.25rem; }
+  header { flex-direction: column; gap: 0.5rem; }
+
+  .gem-item {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 1.2rem 0 1.2rem 2rem;
+  }
+
+  .gem-dot {
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+  }
+
+  .gem-dot::before {
+    top: 9px;
+    bottom: -2rem;
+  }
+
+  .gem-date {
+    text-align: left;
+    font-size: 0.75rem;
+  }
+
+  .gem-title a { font-size: 0.95rem; }
+
+  .gem-tags {
+    max-width: none;
+    justify-content: flex-start;
+  }
+}
