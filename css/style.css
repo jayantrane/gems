@@ -114,11 +114,19 @@ header {
 /* Tag filter bar */
 .tag-filter-bar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   padding: 1rem 0;
   flex-wrap: wrap;
   border-bottom: 1px solid var(--border-faint);
+}
+
+.tag-filter-bar .tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1 1 22rem;
 }
 
 .tag-filter-bar .label {
@@ -127,6 +135,7 @@ header {
   letter-spacing: 0.1em;
   color: var(--text-muted);
   margin-right: 0.15rem;
+  flex-shrink: 0;
 }
 
 .tag-filter-bar .tag-pill {
@@ -150,6 +159,7 @@ header {
   background: none;
   border: none;
   display: none;
+  flex-shrink: 0;
 }
 
 .clear-filter.visible {
@@ -165,8 +175,8 @@ header {
 /* Each gem row — uses grid for precise column control */
 .gem-item {
   display: grid;
-  grid-template-columns: 8rem 1.5rem 1fr auto;
-  align-items: baseline;
+  grid-template-columns: 8rem 1.5rem minmax(0, 1fr) minmax(0, 320px);
+  align-items: start;
   gap: 0 0.75rem;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--border-faint);
@@ -259,7 +269,8 @@ header {
   gap: 0.35rem;
   flex-wrap: wrap;
   justify-content: flex-end;
-  max-width: 320px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .tag-pill {
@@ -268,7 +279,8 @@ header {
   border-radius: 9999px;
   border: 1px solid var(--tag-border-dim);
   color: var(--tag-text);
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   transition: color 0.5s ease, border-color 0.5s ease, background 0.2s ease;
 }
 
@@ -301,6 +313,10 @@ header {
     grid-template-columns: 1fr;
     gap: 0.25rem;
     padding: 1.2rem 0 1.2rem 2rem;
+  }
+
+  .tag-filter-bar .tag-pills {
+    flex: 1 1 100%;
   }
 
   .gem-dot {
