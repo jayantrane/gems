@@ -19,10 +19,12 @@
   function render(gems) {
     const timeline = document.getElementById('timeline');
     const tagBar = document.getElementById('tag-filter-bar');
+    timeline.classList.add('is-updating');
     timeline.innerHTML = '';
 
     if (!gems.length) {
       timeline.innerHTML = '<div class="empty-state">No gems match that filter.</div>';
+      requestAnimationFrame(() => timeline.classList.remove('is-updating'));
       return;
     }
 
@@ -32,6 +34,7 @@
 
     buildTagBar(tagBar);
     observeItems();
+    requestAnimationFrame(() => timeline.classList.remove('is-updating'));
   }
 
   function createGemRow(gem) {

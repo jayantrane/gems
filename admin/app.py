@@ -2,6 +2,7 @@ import json
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 from flask import Flask, redirect, render_template, request, url_for, flash
 
@@ -34,6 +35,14 @@ def now_iso():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def is_valid_http_url(value):
+    try:
+        parsed = urlparse(value)
+    except ValueError:
+        return False
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
 def git_run(*args):
     result = subprocess.run(
         ["git"] + list(args),
@@ -55,13 +64,25 @@ def index():
 @app.route("/add", methods=["POST"])
 def add():
     gems = load_gems()
+    title = request.form.get("title", "").strip()
+    url = request.form.get("url", "").strip()
+    tags = [t.strip() for t in request.form.get("tags", "").split(",") if t.strip()]
+
+    if not title:
+        flash("Title is required.")
+        return redirect(url_for("index"))
+
+    if not is_valid_http_url(url):
+        flash("URL must start with http:// or https://")
+        return redirect(url_for("index"))
+
     gem = {
         "seq": next_seq(gems),
         "added": now_iso(),
         "updated": now_iso(),
-        "title": request.form["title"].strip(),
-        "url": request.form["url"].strip(),
-        "tags": [t.strip() for t in request.form["tags"].split(",") if t.strip()],
+        "title": title,
+        "url": url,
+        "tags": tags,
     }
     gems.append(gem)
     save_gems(gems)
@@ -72,13 +93,32 @@ def add():
 @app.route("/edit/<int:seq>", methods=["POST"])
 def edit(seq):
     gems = load_gems()
+    title = request.form.get("title", "").strip()
+    url = request.form.get("url", "").strip()
+    tags = [t.strip() for t in request.form.get("tags", "").split(",") if t.strip()]
+
+    if not title:
+        flash("Title is required.")
+        return redirect(url_for("index"))
+
+    if not is_valid_http_url(url):
+        flash("URL must start with http:// or https://")
+        return redirect(url_for("index"))
+
+    updated = False
     for gem in gems:
         if gem["seq"] == seq:
-            gem["title"] = request.form["title"].strip()
-            gem["url"] = request.form["url"].strip()
-            gem["tags"] = [t.strip() for t in request.form["tags"].split(",") if t.strip()]
+            gem["title"] = title
+            gem["url"] = url
+            gem["tags"] = tags
             gem["updated"] = now_iso()
+            updated = True
             break
+
+    if not updated:
+        flash("Gem not found.")
+        return redirect(url_for("index"))
+
     save_gems(gems)
     flash("Updated.")
     return redirect(url_for("index"))
@@ -87,7 +127,12 @@ def edit(seq):
 @app.route("/delete/<int:seq>", methods=["POST"])
 def delete(seq):
     gems = load_gems()
+    initial_count = len(gems)
     gems = [g for g in gems if g["seq"] != seq]
+    if len(gems) == initial_count:
+        flash("Gem not found.")
+        return redirect(url_for("index"))
+
     save_gems(gems)
     flash("Deleted.")
     return redirect(url_for("index"))

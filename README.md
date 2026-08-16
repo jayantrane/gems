@@ -2,7 +2,7 @@
 
 Best reads curated by Jayant, collected over time.
 
-Live at: **gems.systemdesignprep.com**
+Live at: [gems](https://gems.systemdesignprep.com)
 
 ## What
 
@@ -48,16 +48,19 @@ A single-page static website that displays curated articles in a vertical timeli
 
 The admin app lives in `admin/` and runs on your homelab. It provides a web UI to manage gems and publish changes via git.
 
-### Setup
+### Setup with local virtual environment
 
 ```bash
-cd admin
-pip install -r requirements.txt
+cd /path/to/gems
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r admin/requirements.txt
 ```
 
 ### Start
 
 ```bash
+cd admin
 python app.py
 # Runs on http://localhost:5050
 ```
@@ -70,6 +73,16 @@ python app.py
 - **Delete a gem**: Click **Del** on any row (confirmation prompt)
 - **Publish to git**: Enter an optional commit message at the bottom, click **Publish** — runs `git add`, `commit`, and `push`
 
+### Stop and exit
+
+```bash
+# In the terminal running Flask:
+Ctrl+C
+
+# Then deactivate the virtual environment:
+deactivate
+```
+
 ### How it works
 
 The admin reads/writes `data/gems.json` directly. It auto-detects the repo path from its own location. The "Publish" button commits and pushes the JSON file to git, which syncs to Hostinger.
@@ -79,4 +92,35 @@ The admin reads/writes `data/gems.json` directly. It auto-detects the repo path 
 ```bash
 python3 -m http.server 8888
 # Open http://localhost:8888
+```
+
+## Run with Docker Compose
+
+Use Docker Compose to run frontend and admin together with realtime edits from mounted files.
+
+### Start both services
+
+```bash
+docker compose --env-file .env.docker -f docker-compose.yml up --build
+```
+
+### Access
+
+- Frontend timeline: `http://localhost:8888`
+- Admin editor: `http://localhost:5050`
+
+Both services mount the repository folder, so updates to `data/gems.json`, `css/style.css`, `js/app.js`, and admin files are reflected immediately.
+
+### Configure ports and project path
+
+Set `PROJECTS_DIR` in your shell environment (for example via dotfiles), then edit `.env.docker` for compose-specific values:
+
+- `COMPOSE_PROJECT_NAME`: compose project name (set to `gems` by default)
+- `FRONTEND_PORT`: host port for timeline site
+- `ADMIN_PORT`: host port for admin app
+
+### Stop
+
+```bash
+docker compose --env-file .env.docker -f docker-compose.yml down
 ```
