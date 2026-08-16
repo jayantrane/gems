@@ -2,163 +2,75 @@
   "gems": [
     {
       "seq": 1,
-      "added": "2026-08-15T10:30:00Z",
-      "updated": "2026-08-15T10:30:00Z",
-      "title": "How Discord Stores Trillions of Messages",
-      "url": "https://discord.com/blog/how-discord-stores-trillions-of-messages",
-      "tags": ["database", "cassandra", "scale"]
+      "added": "2026-07-18T09:10:00Z",
+      "updated": "2026-07-18T09:10:00Z",
+      "title": "Charlie Munger Swore by These 8 Clear Thinking Rules His Entire Life",
+      "url": "https://medium.com/personal-growth/charlie-munger-used-these-8-thinking-tools-his-entire-life-f7563be39bf9",
+      "tags": [
+        "mental-models",
+        "decision-making",
+        "critical-thinking"
+      ]
     },
     {
       "seq": 2,
-      "added": "2026-08-12T14:00:00Z",
-      "updated": "2026-08-12T14:00:00Z",
-      "title": "Designing WhatsApp's Read Receipts at Scale",
-      "url": "https://engineering.fb.com/2024/02/12/production-engineering/read-receipts/",
-      "tags": ["messaging", "distributed-systems"]
+      "added": "2026-07-23T13:25:00Z",
+      "updated": "2026-07-23T13:25:00Z",
+      "title": "Running 1:1s for Engineers",
+      "url": "https://justoffbyone.com/posts/how-to-run-11s/",
+      "tags": [
+        "engineering-management",
+        "one-on-one",
+        "leadership"
+      ]
     },
     {
       "seq": 3,
-      "added": "2026-08-05T09:15:00Z",
-      "updated": "2026-08-05T09:15:00Z",
-      "title": "How Figma Scaled to Multiple Databases",
-      "url": "https://www.figma.com/blog/how-figma-scaled-to-multiple-databases/",
-      "tags": ["database", "sharding", "postgres"]
+      "added": "2026-07-28T08:40:00Z",
+      "updated": "2026-07-28T08:40:00Z",
+      "title": "21 Lessons from 14 Years at Google",
+      "url": "https://addyo.substack.com/p/21-lessons-from-14-years-at-google",
+      "tags": [
+        "career-growth",
+        "software-engineering",
+        "productivity"
+      ]
     },
     {
       "seq": 4,
-      "added": "2026-07-28T16:45:00Z",
-      "updated": "2026-07-28T16:45:00Z",
-      "title": "Building a Reliable Notification System",
-      "url": "https://engineering.linkedin.com/blog/2024/notification-system",
-      "tags": ["notifications", "reliability", "queue"]
+      "added": "2026-08-01T11:05:00Z",
+      "updated": "2026-08-01T11:05:00Z",
+      "title": "Thinking clearly about software",
+      "url": "https://www.seangoedecke.com/thinking-clearly/",
+      "tags": [
+        "software-engineering",
+        "debugging",
+        "clear-thinking"
+      ]
     },
     {
       "seq": 5,
-      "added": "2026-07-20T11:00:00Z",
-      "updated": "2026-07-20T11:00:00Z",
-      "title": "Netflix: What Happens When You Press Play",
-      "url": "https://netflixtechblog.com/what-happens-when-you-press-play",
-      "tags": ["streaming", "cdn", "video"]
+      "added": "2026-08-07T17:30:00Z",
+      "updated": "2026-08-07T17:30:00Z",
+      "title": "You don't have to be smart if you can think clearly",
+      "url": "https://www.seangoedecke.com/you-dont-have-to-be-smart-if-you-think-clearly/",
+      "tags": [
+        "problem-solving",
+        "clear-thinking",
+        "engineering-mindset"
+      ]
     },
     {
       "seq": 6,
-      "added": "2026-07-15T08:30:00Z",
-      "updated": "2026-07-15T08:30:00Z",
-      "title": "Rate Limiting at Stripe",
-      "url": "https://stripe.com/blog/rate-limiters",
-      "tags": ["rate-limiting", "api-design"]
-    },
-    {
-      "seq": 7,
-      "added": "2026-06-30T13:20:00Z",
-      "updated": "2026-06-30T13:20:00Z",
-      "title": "How Slack Built Shared Channels",
-      "url": "https://slack.engineering/shared-channels/",
-      "tags": ["messaging", "architecture", "multi-tenancy"]
-    },
-    {
-      "seq": 8,
-      "added": "2026-06-18T10:00:00Z",
-      "updated": "2026-06-18T10:00:00Z",
-      "title": "Consistent Hashing in Cassandra",
-      "url": "https://cassandra.apache.org/doc/latest/architecture/dynamo.html",
-      "tags": ["consistent-hashing", "cassandra", "distributed-systems"]
-    },
-    {
-      "seq": 9,
-      "added": "2026-06-10T07:45:00Z",
-      "updated": "2026-06-10T07:45:00Z",
-      "title": "How Shopify Handles Flash Sales",
-      "url": "https://shopify.engineering/handling-flash-sales",
-      "tags": ["scale", "queue", "e-commerce"]
-    },
-    {
-      "seq": 10,
-      "added": "2026-05-25T15:00:00Z",
-      "updated": "2026-05-25T15:00:00Z",
-      "title": "Uber's Real-Time Push Platform",
-      "url": "https://www.uber.com/blog/real-time-push-platform/",
-      "tags": ["real-time", "websockets", "scale"]
-    },
-    {
-      "seq": 11,
-      "added": "2026-05-18T12:00:00Z",
-      "updated": "2026-05-18T12:00:00Z",
-      "title": "How GitHub Serves 2 Billion Requests Daily",
-      "url": "https://github.blog/engineering/infrastructure/",
-      "tags": ["cdn", "caching", "scale"]
-    },
-    {
-      "seq": 12,
-      "added": "2026-05-05T09:30:00Z",
-      "updated": "2026-05-05T09:30:00Z",
-      "title": "The Architecture of Notion's Real-Time Editing",
-      "url": "https://www.notion.so/blog/data-model-behind-notion",
-      "tags": ["crdt", "real-time", "collaboration"]
-    },
-    {
-      "seq": 13,
-      "added": "2026-04-22T11:15:00Z",
-      "updated": "2026-04-22T11:15:00Z",
-      "title": "Pinterest's Approach to Image Search at Scale",
-      "url": "https://medium.com/pinterest-engineering/image-search",
-      "tags": ["search", "machine-learning", "scale"]
-    },
-    {
-      "seq": 14,
-      "added": "2026-04-10T14:30:00Z",
-      "updated": "2026-04-10T14:30:00Z",
-      "title": "How Airbnb Standardized Metric Definitions",
-      "url": "https://medium.com/airbnb-engineering/metric-standardization",
-      "tags": ["data-engineering", "analytics"]
-    },
-    {
-      "seq": 15,
-      "added": "2026-03-28T08:00:00Z",
-      "updated": "2026-03-28T08:00:00Z",
-      "title": "Distributed Transactions at Scale: Two-Phase Commit",
-      "url": "https://martinfowler.com/articles/patterns-of-distributed-systems/two-phase-commit.html",
-      "tags": ["distributed-systems", "transactions", "consensus"]
-    },
-    {
-      "seq": 16,
-      "added": "2026-03-15T16:20:00Z",
-      "updated": "2026-03-15T16:20:00Z",
-      "title": "How Twitter Processes 400 Billion Events in Real Time",
-      "url": "https://blog.twitter.com/engineering/en_us/topics/infrastructure/real-time-processing",
-      "tags": ["streaming", "kafka", "real-time"]
-    },
-    {
-      "seq": 17,
-      "added": "2026-03-02T10:45:00Z",
-      "updated": "2026-03-02T10:45:00Z",
-      "title": "The Evolution of Reddit's Architecture",
-      "url": "https://www.reddit.com/r/RedditEng/comments/architecture-evolution/",
-      "tags": ["architecture", "monolith", "microservices"]
-    },
-    {
-      "seq": 18,
-      "added": "2026-02-18T13:00:00Z",
-      "updated": "2026-02-18T13:00:00Z",
-      "title": "DoorDash: Building a Reliable Order Platform",
-      "url": "https://doordash.engineering/reliable-order-platform/",
-      "tags": ["reliability", "saga-pattern", "microservices"]
-    },
-    {
-      "seq": 19,
-      "added": "2026-02-05T09:00:00Z",
-      "updated": "2026-02-05T09:00:00Z",
-      "title": "How Cloudflare Runs Billions of DNS Queries",
-      "url": "https://blog.cloudflare.com/dns-architecture/",
-      "tags": ["dns", "networking", "scale"]
-    },
-    {
-      "seq": 20,
-      "added": "2026-01-20T11:30:00Z",
-      "updated": "2026-01-20T11:30:00Z",
-      "title": "Designing Idempotent APIs for Payment Systems",
-      "url": "https://brandur.org/idempotency-keys",
-      "tags": ["api-design", "payments", "idempotency"]
+      "added": "2026-08-12T10:20:00Z",
+      "updated": "2026-08-12T10:20:00Z",
+      "title": "Careers Are Collapsing. Jobs Are Dying. The Smartest People Are Doing This Right Now",
+      "url": "https://medium.com/personal-growth/careers-are-collapsing-jobs-are-dying-the-smartest-people-are-doing-this-right-now-becc742dfee2",
+      "tags": [
+        "career",
+        "future-of-work",
+        "personal-growth"
+      ]
     }
   ]
 }
