@@ -39,10 +39,10 @@
   --accent-dim: rgba(101, 84, 192, 0.15);
   --border: rgba(0, 0, 0, 0.08);
   --border-faint: rgba(0, 0, 0, 0.04);
-  --tag-text: rgba(0, 0, 0, 0.4);
-  --tag-text-active: rgba(0, 0, 0, 0.7);
-  --tag-border: rgba(0, 0, 0, 0.12);
-  --tag-border-dim: rgba(0, 0, 0, 0.08);
+  --tag-text: rgba(0, 0, 0, 0.62);
+  --tag-text-active: rgba(0, 0, 0, 0.86);
+  --tag-border: rgba(0, 0, 0, 0.2);
+  --tag-border-dim: rgba(0, 0, 0, 0.14);
   --date-color: rgba(0, 0, 0, 0.3);
   --date-color-active: rgba(0, 0, 0, 0.6);
   --title-color: rgba(0, 0, 0, 0.3);
