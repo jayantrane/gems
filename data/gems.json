@@ -82,6 +82,17 @@
         "personal-growth",
         "productivity"
       ]
+    },
+    {
+      "seq": 8,
+      "added": "2026-08-30T14:12:44Z",
+      "updated": "2026-08-30T14:13:31Z",
+      "title": "Favorite Programming Books",
+      "url": "https://backtracking.github.io/en/2020/02/20/cs-books.html",
+      "tags": [
+        "books",
+        "programming"
+      ]
     }
   ]
 }
